@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity  } from 'react-native';
 import ItemLista from './ItemLista';
 const ListaDeListas = ({ dataLista, elimina, check }) => {
+    console.log('Data Lista ',dataLista);
     return (
         <View>
             <FlatList
                 data={dataLista}
                 renderItem={({item}) => 
+                <>
                         <ItemLista key = {item.key} data = {item} elimina = {elimina} check = {check}/>
+                </>
                 }
             />
         </View>

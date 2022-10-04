@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Button  } from 'react-native';
 import MiModal from './MiModal';
-const FormNuevaLista = ({add, count}) => {
+const FormNuevaLista = ({add, count, setCount}) => {
     const [nombreLista, setNombreLista] = useState('');
     const [muestraModal, setMuestraModal] = useState(false);
     const [mensajeModal, setMensajeModal] = useState('');
-    const [contador, setContador] = useState(0);
+    const [contadorListas, setContadorListas] = useState(0);
+    useEffect(()=>{
+        setContadorListas(count)
+    },[count])
     const tryAdd = () => {
-        let count = 1 + contador;
+        let count = 1 + contadorListas;
         if (nombreLista.length<=0) {
             setMuestraModal(true);
             setMensajeModal('Por favor escribe un nombre para la lista')
@@ -22,15 +25,17 @@ const FormNuevaLista = ({add, count}) => {
             nombre: nombreLista,
             key: count,
         });
-        setContador(count);
+        setCount(count);
         setNombreLista('');
     }
+    console.log('Contador de listas ', contadorListas); //Se reinicia a 1 al abrir otro componente!! ¿Por qué????
+
     return (
         <View style={styles.container}>
             <TextInput style={styles.input} value = {nombreLista} onChangeText = { newText => setNombreLista(newText)} />
             <TouchableOpacity  style={styles.button}
                 onPress = { () => tryAdd() }
-            ><Text style={styles.buttonText}>AÑADIR</Text></TouchableOpacity>
+            ><Text style={styles.buttonText}>AÑADIR LISTA</Text></TouchableOpacity>
             <MiModal muestraModal={muestraModal} setMuestraModal={setMuestraModal} mensajeModal={mensajeModal} />
         </View>
     )

@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Button  } from 'react-native';
 import MiModal from '../MiModal';
-const FormNuevoElemento = ({add, count}) => {
+const FormNuevoElemento = ({add, count, setCount}) => {
     const [nombreElemento, setNombreElemento] = useState('');
     const [muestraModal, setMuestraModal] = useState(false);
     const [mensajeModal, setMensajeModal] = useState('');
-    const [contador, setContador] = useState(0);
+    const [contadorElementos, setContadorElementos] = useState(0);
+    useEffect(()=>{
+        setContadorElementos(count)
+    },[count])
     const tryAdd = () => {
-        let count = 1 + contador;
+        let counter = 1 + contadorElementos;
         if (nombreElemento.length<=0) {
             setMuestraModal(true);
             setMensajeModal('Por favor escribe un nombre para el elemento')
@@ -20,10 +23,10 @@ const FormNuevoElemento = ({add, count}) => {
         }
         add({
             nombre: nombreElemento,
-            key: count,
+            key: counter,
             checked: false,
         });
-        setContador(count);
+        setCount(counter);
         setNombreElemento('');
     }
     return (
@@ -31,7 +34,7 @@ const FormNuevoElemento = ({add, count}) => {
             <TextInput style={styles.input} value = {nombreElemento} onChangeText = { newText => setNombreElemento(newText)} />
             <TouchableOpacity  style={styles.button}
                 onPress = { () => tryAdd() }
-            ><Text style={styles.buttonText}>AÑADIR</Text></TouchableOpacity>
+            ><Text style={styles.buttonText}>AÑADIR ARTÍCULO</Text></TouchableOpacity>
             <MiModal muestraModal={muestraModal} setMuestraModal={setMuestraModal} mensajeModal={mensajeModal} />
         </View>
     )

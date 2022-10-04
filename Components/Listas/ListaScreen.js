@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import Titulo from '../Titulo';
 import FormNuevoElemento from './FormNuevoElemento';
 import Lista from './Lista';
-const ListaScreen = ({data, close, actualiza}) => {
+const ListaScreen = ({data, close, actualiza, count, setCount}) => {
     console.log('Render ListaScreen');
     const [nombreLista, setNombreLista] = useState('');
     const [listaActual, setListaActual] = useState([]);
@@ -26,7 +26,6 @@ const ListaScreen = ({data, close, actualiza}) => {
         actualiza(data.data.key);
     }
     const handleDeleteElemento= (key) => {
-        console.log('Elimina elemento ', key);
         let tempListaActual = listaActual.map( item  => item);
         for (let index = 0; index < tempListaActual.length; index++) {
             if (tempListaActual[index].key === key) {
@@ -36,7 +35,6 @@ const ListaScreen = ({data, close, actualiza}) => {
         setListaActual(tempListaActual);
     }
     const handleCheck = (key) => {
-        console.log('handleCheck ', key);
         let tempListaActual = listaActual.map( item  => item);
         for (let index = 0; index < tempListaActual.length; index++) {
             if (tempListaActual[index].key === key) {
@@ -45,12 +43,12 @@ const ListaScreen = ({data, close, actualiza}) => {
         }
         setListaActual(tempListaActual);
     }
-    console.log('Lista',listaActual);
+    console.log('Contador de elementos ', count);
     return (
         <View style={styles.container}>
             <Titulo>Lista {nombreLista}</Titulo>
             <Button title='Regresar' onPress={()=>close()}/>
-            <FormNuevoElemento add = {handleNuevoElemento}/>
+            <FormNuevoElemento add = {handleNuevoElemento} count = {count} setCount = {setCount}/>
             <Lista dataLista = {listaActual} elimina = {handleDeleteElemento} check = {handleCheck}/>
         </View>
     )

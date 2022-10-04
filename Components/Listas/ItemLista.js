@@ -4,10 +4,12 @@ import { CheckBox } from 'react-native-elements'
 const ItemListaDeListas = ({data, elimina, check}) => {
     return (
         <View style={styles.container}>
+            {console.log(data)}
             <CheckBox
-                style={styles.checkbox}
                 checked={data.checked}
                 onPress={() => check(data.key)}
+                checkedColor='black'
+                uncheckedColor='black'
             />
             <Text style={styles.text}>{data.nombre}</Text>
             <View style={styles.buttons}>
@@ -24,12 +26,14 @@ export default ItemListaDeListas;
 
 const styles = StyleSheet.create({
     container: {
+        height:'auto',
         width:'100%',
         backgroundColor:'rgb(108, 196, 240)',
         flexDirection:'row',
         justifyContent:'space-between',
         borderWidth:1,
         borderColor:'black',
+        flex:1,
     },
     text:{
         marginLeft:20,
@@ -43,16 +47,10 @@ const styles = StyleSheet.create({
     buttons:{
         flexDirection:'row',
     },
-    buttonVer:{
-        width:50,
-        height:50,
-        marginRight:10, 
-        backgroundColor:'rgb(16, 144, 218)',  
-        borderRadius:5,
-    },
+
     buttonDelete:{
         width:50,
-        height:50,
+        height:'100%',
         marginRight:10, 
         backgroundColor:'rgb(234, 87, 68)',    
         borderRadius:5,
@@ -62,12 +60,6 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         textAlignVertical:'center',
         fontWeight:'bold',
-    },
-    checkbox: {
-        alignSelf: "center",
-        borderColor:'black',
-        borderWidth:2,
-        width:40,
     },
 });
   
